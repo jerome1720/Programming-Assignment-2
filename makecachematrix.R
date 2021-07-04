@@ -1,24 +1,24 @@
-makeCacheMatrix <- function(x = matrix()){
+makeCacheMatrix <- function(u = matrix()){
   inv <- NULL
-  set <-function(y){
-    x <<- y
+  set <-function(t){
+    u <<- t
     inv <<- NULL
   }
-  get <- function() {x}    ##the function to obtain matrix x
+  get <- function() {u}    ##the function to obtain matrix u
   setinverse <- function(inverse) {inv <<- inverse}
   getinverse <- function() {inv}
-  list(set = set, get = get, setinverse = setinverse, getinverse = getinverse)
+  list(set = set, setinverse = setinverse, get = get, getinverse = getinverse)
 }
 
-cacheSolve <- function(x, ...){    ##provides the cache data
-  inv <- x$getinverse()
+cacheSolve <- function(u, ...){    ##provides the cache data
+  inv <- u$getinverse()
   if(!is.null(inv)){
-    message("getting cached data")
+    message("getting the cached data")
     return(inv)                    ##Gives back the inverse value
   }
-  mat <- x$get()
+  mat <- u$get()
   inv <- solve(mat, ...)           ##determines the inverse value
-  x$setinverse(inv)
-  inv            ##returns a matrix inverse of 'x'
+  u$setinverse(inv)
+  inv            ##returns a matrix inverse of 'u'
 }
 
